@@ -1,5 +1,11 @@
 # WSL2 w Windows 10
 
+## Spis treści
+
+[Czym jest WSL2?](https://arturfog.github.io/articles/wsl2.md)
+[Konfiguracja WSL2 w Windows 10](https://arturfog.github.io/articles/wsl2.md)
+[Konfiguracja Ubuntu](https://arturfog.github.io/articles/wsl2.md)
+
 ## Czym jest WSL2? 
 
 WSL2 jest zaprezentowanym w Maju 2020 zaktualizowanym środowiskiem do uruchamiana pełnych dystrybucji Linuxa takich jak min. Ubuntu 
@@ -32,4 +38,45 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 ![WSL installation](https://arturfog.github.io/articles/wsl2/6.png)
 
 
+5. Restart sysetemu
+
+6. Aktualizacja kernela Linuxa dla WSL2
+
+[https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
+
+![WSL Kernel update](https://arturfog.github.io/articles/wsl2/7.png)
+
+7. Ustaw WSL2 jako domyślne
+
+```
+wsl --set-default-version 2
+```
+
+![WSL set version](https://arturfog.github.io/articles/wsl2/8.png)
+
+8. Zainstaluj Ubuntu z Microsoft Store
+
+![Search Ubuntu Microsoft Store](https://arturfog.github.io/articles/wsl2/9.png)
+![Ubuntu Microsoft Store](https://arturfog.github.io/articles/wsl2/10.png)
+![Ubuntu downloading](https://arturfog.github.io/articles/wsl2/11.png)
+
+9. Po zainstalowaniu uruchamiamy Ubuntu
+
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+
+
+### Konfiguracja Ubuntu
+
+1. Aktualizujemy listę dostępnych pakietów
+
+```
+sudo apt get update
+```
+
+2. Pobieramy aktualizacje
+
+```
+sudo apt get upgrade
+```
+
+![Ubuntu upgrade](https://arturfog.github.io/articles/wsl2/18.png)
