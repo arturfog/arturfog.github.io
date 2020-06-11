@@ -13,7 +13,17 @@
 WSL2 jest zaprezentowanym w Maju 2020 zaktualizowanym środowiskiem do uruchamiana pełnych dystrybucji Linuxa takich jak min. Ubuntu 
 z poziomu systemu Windows. [What's New in WSL2?'](https://docs.microsoft.com/en-us/windows/wsl/wsl2-index)
 
+### Najwieksze zalety WSL2 w porównaniu do WSL1
+
+* Bazuje na prawdziwym kernelu Linuxa a nie jak dotychczas interfejsie pośredniczącym
+* Pełne wsparcie sys-calli Linuxa
+* Nawet 20x szybsze operacje I/O. Kompilacja czy wypakowywanie plików znacznie przyspieszyło
+* Pliki przechowywane są na partycji ext4 (domyślny romiar dysku WSL2 to 250 GB)
+
 ## Konfiguracja WSL2 w Windows 10<a name="part2"></a>
+
+WSL2 dostępny jest tylko na Windows 10 Pro w wersji co najmniej 1909. 
+Poniższe kroki były uruchamiane na wersji 2004.
 
 1 Instalacja Windows Terminal z Microsoft Store
 
@@ -119,3 +129,37 @@ W tym mijescu widoczne są wszystkie zainstalowane dystrybucje Linuxa
 ## Docker.io w Windows<a name="part5"></a>
 
 Największą nowością i wg. mnie zaletą WSL2 jest możliwość uruchamian docker-a
+
+```
+sudo apt install docker.io
+```
+
+![Install docker](https://arturfog.github.io/articles/wsl2/23.png)
+
+Uruchamiamy docker-a
+
+```
+sudo dockerd&
+```
+
+Instalujemy testowy kontener "hello-world"
+
+```
+sudo docker pull hello-world
+```
+
+![Install docker](https://arturfog.github.io/articles/wsl2/25.png)
+
+Sprawdźmy czy nowy kontener działa ? 
+
+![Install docker](https://arturfog.github.io/articles/wsl2/26.png)
+
+Działa !
+
+## Aplikacje z interfejsem graficznym <a name="part6"></a>
+
+Obecnie WSL2 nie umożliwia natywnie uruchamiać aplikacji z interfejsem graficznym. Microsoft zapowiedział
+udostępnienie tej funkcji w przyszłości.
+
+Natomiast po instalacji jednego z zewnętrznych serwerów X-ów aplikacje z graficznym 
+interfejsem można uruchamiać.
