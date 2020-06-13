@@ -7,6 +7,8 @@
 * [Konfiguracja Ubuntu](#part3)
 * [Dostęp do plików WLS2 <-> Windows](#part4)
 * [docker.io w Windows :)](#part5)
+* [Aplikacje z interfejsem graficznym](#part6)
+* [Dźwięk w WSL2](#part7)
 
 ## Czym jest WSL2?<a name="part1"></a>
 
@@ -163,3 +165,62 @@ udostępnienie tej funkcji w przyszłości.
 
 Natomiast po instalacji jednego z zewnętrznych serwerów X-ów aplikacje z graficznym 
 interfejsem można uruchamiać.
+
+Należy zacząć od instalacji wybranego serwera X-ów. Na przykład vcxsrv
+
+[https://sourceforge.net/projects/vcxsrv/](https://sourceforge.net/projects/vcxsrv/)
+
+Instalacja przebiega standardowo, nie wymaga jakiejkolwiek konfiguracji
+
+![Install docker](https://arturfog.github.io/articles/wsl2/27.png)
+
+Podczas uruchomienia serwera X11 należy zaznaczyć opcje 'Disable access control'
+
+![Install docker](https://arturfog.github.io/articles/wsl2/31.png)
+
+Po instalacji należy już w środowisku Ubuntu zadeklarować dwie zmienne środowiskowe i 
+możemy już uruchamiać aplikacje graficzne. 
+
+```
+export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+export LIBGL_ALWAYS_INDIRECT=1
+```
+
+Zainstalujmy Firefox-a i sprawdźmy czy działa
+
+```
+sudo apt install firefox
+```
+
+![Install docker](https://arturfog.github.io/articles/wsl2/32.png)
+
+## Dźwięk w WSL2 <a name="part7"></a>
+
+Natywnie WSL2 nie obsługuje jeszcze dzwięku.
+
+Pobieramy server PulseAudio dla Windows [https://www.freedesktop.org/wiki/Software/PulseAudio/Ports/Windows/Support/](https://www.freedesktop.org/wiki/Software/PulseAudio/Ports/Windows/Support/)
+
+Aktualna wersja portu dla Windows to 1.1
+[http://bosmans.ch/pulseaudio/pulseaudio-1.1.zip](http://bosmans.ch/pulseaudio/pulseaudio-1.1.zip)
+
+Po pobraniu należy wypakować pliki i możemy przystąpić do konfiguracji serwera audio
+
+![Install docker](https://arturfog.github.io/articles/wsl2/35.png)
+
+Edytujemy plik 'etc\pulse\default.pa'
+
+Edytujemy plik 'etc\pulse\daemon.conf'
+
+![Install docker](https://arturfog.github.io/articles/wsl2/37.png)
+
+Adres IP Windows pobierzemy tą komendą
+
+```
+cat /etc/resolv.conf | grep nameserver
+```
+
+Następnie musimy wyexportowć zmienną z adresem IP serwera PulseAudio aby Ubuntu mogło sięz nim połaczyć
+
+```
+export PULSE_SERVER=tcp:172.26.112.1
+```
