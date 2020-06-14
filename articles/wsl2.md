@@ -194,6 +194,16 @@ sudo apt install firefox
 
 ![Install docker](https://arturfog.github.io/articles/wsl2/32.png)
 
+Pozostaje uruchomić firefoxa i sprawdzić czy działa
+
+```
+firefox
+```
+
+I jak widać działa
+
+![Install docker](https://arturfog.github.io/articles/wsl2/33.png)
+
 ## Dźwięk w WSL2 <a name="part7"></a>
 
 Natywnie WSL2 nie obsługuje jeszcze dzwięku.
@@ -209,6 +219,10 @@ Po pobraniu należy wypakować pliki i możemy przystąpić do konfiguracji serw
 
 Edytujemy plik 'etc\pulse\default.pa'
 
+![Install docker](https://arturfog.github.io/articles/wsl2/38.png)
+
+![Install docker](https://arturfog.github.io/articles/wsl2/41.png)
+
 Edytujemy plik 'etc\pulse\daemon.conf'
 
 ![Install docker](https://arturfog.github.io/articles/wsl2/37.png)
@@ -219,8 +233,27 @@ Adres IP Windows pobierzemy tą komendą
 cat /etc/resolv.conf | grep nameserver
 ```
 
-Następnie musimy wyexportowć zmienną z adresem IP serwera PulseAudio aby Ubuntu mogło sięz nim połaczyć
+Teraz możemy uruchomić server pulseaudio
+
+![Install docker](https://arturfog.github.io/articles/wsl2/44.png)
+
+Podczas pierwszego uruchomienia należy dodać pulseaudio do listy wyjątków Windows Firewall
+
+![Install docker](https://arturfog.github.io/articles/wsl2/40.png)
+
+PulseAudio powinno sie uruchomic i w konsoli pojawią się logi z aplikacji
+
+![Install docker](https://arturfog.github.io/articles/wsl2/43.png)
+
+Następnie musimy wyexportowć zmienną z adresem IP serwera PulseAudio aby Ubuntu mogło się z nim połaczyć
 
 ```
 export PULSE_SERVER=tcp:172.26.112.1
 ```
+
+Pozostaje sprawdzić czy dzwięk działa. 
+
+## USB w WSL2 <a name="part8"></a>
+
+USB jest kolejną funkcjonalnością nie dostępną obecnie w WSL2. Jego obsługa jest 
+zapowiedziana w kolejnych aktualizacjach.
