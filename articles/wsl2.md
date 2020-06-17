@@ -28,7 +28,18 @@ z poziomu systemu Windows. [What's New in WSL2?'](https://docs.microsoft.com/en-
 WSL2 dostępny jest tylko na Windows 10 Pro w wersji co najmniej 1909. 
 Poniższe kroki były uruchamiane na wersji 2004.
 
-1 Instalacja Windows Terminal z Microsoft Store
+Wersje sytstemu Windows można sprawdzić wpisująć w terminalu komendę 
+
+```
+winver.exe
+```
+
+![Terminal as Admin](https://arturfog.github.io/articles/wsl2/47.png)
+
+1 Instalacja Windows Terminal z Microsoft Store.
+
+Ten krok jest opcjonalny jednak użycie Windows Terminal znacznie uławia pracę 
+w konsoli systemu Windows oraz późniejszą pracę z dystrybucjami Linuxa
 
 ![Store](https://arturfog.github.io/articles/wsl2/1.png)
 
@@ -52,16 +63,19 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 
 ![WSL installation](https://arturfog.github.io/articles/wsl2/6.png)
 
-
-5 Restart sysetemu
+5 W tym momencie należy wykonać restart sysetemu Windows
 
 6 Aktualizacja kernela Linuxa dla WSL2
+
+Pobieramy i instalujemy następujący plik
 
 [https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
 
 ![WSL Kernel update](https://arturfog.github.io/articles/wsl2/7.png)
 
 7 Ustaw WSL2 jako domyślne
+
+Warto ustawić WSL2 jako domyślne dla nowych instalacji dystrybucji Linuxa
 
 ```
 wsl --set-default-version 2
@@ -90,7 +104,7 @@ wsl --set-default-version 2
 Po zakończeniu instalacji i konfiguracji zestawu WSL2 + Ubuntu uzyskujemy dostęp do 
 pełnej funkcjonalności tej dystrybucji Linuxa. 
 
-## Konfiguracja Ubuntu<a name="part3"></a>
+## Podstawowa konfiguracja Ubuntu<a name="part3"></a>
 
 1 Aktualizujemy listę dostępnych pakietów
 
@@ -98,11 +112,16 @@ pełnej funkcjonalności tej dystrybucji Linuxa.
 sudo apt get update
 ```
 
-2 Pobieramy aktualizacje
+2 Pobieramy i instalujemy aktualizacje
 
 ```
 sudo apt get upgrade
 ```
+
+W tym momencie możemy przystąpić do dalszej koniguracji w zależności od potrzeb, 
+np. zainstalować serwer www (nginx lub apache) lub kompilator C++. W dalszej częsci 
+artykułu znajdują się instrukcje insttalacji min. dockera oraz obsługi aplikacji z graficznym
+interfejsem użytkownika.
 
 ![Ubuntu upgrade](https://arturfog.github.io/articles/wsl2/18.png)
 
@@ -121,17 +140,27 @@ Dysk C: (i wszystkie inne) dostępne są z katalogu */mnt*
 ### Dostęp z Windows do plików Ubuntu
 
 Aby uzyskać dostęp do plików Ubuntu z poziomu Windows należy w "Eksploratorze plików" wpisać 
-ścieżke 
+ścieżke
+
+```
+\\wsl$
+```
 
 ![Windows disk access](https://arturfog.github.io/articles/wsl2/21.png)
 
-W tym mijescu widoczne są wszystkie zainstalowane dystrybucje Linuxa
+W tym mijescu widoczne są wszystkie zainstalowane dystrybucje Linuxa i możemy uzyskać dostęp do plików
+przechowywanych w Ubuntu, w wygodny sposób
 
 ![Windows disk access](https://arturfog.github.io/articles/wsl2/19.png)
 
 ## Docker.io w Windows<a name="part5"></a>
 
-Największą nowością i wg. mnie zaletą WSL2 jest możliwość uruchamian docker-a
+Największą wg. mnie zaletą WSL2 jest pełne wsparcie dla [docker-a](https://www.docker.com/)
+
+Jego obsługa bez dużego narzutu sprzętowego (jak w przypdaku pełnej wirtualizacji), 
+pozwala na wygodną obsługę zaawansowanych konterów.
+
+Zacznijmy od instalacji docker-a
 
 ```
 sudo apt install docker.io
@@ -139,7 +168,7 @@ sudo apt install docker.io
 
 ![Install docker](https://arturfog.github.io/articles/wsl2/23.png)
 
-Uruchamiamy docker-a
+Uruchamiamy docker-a (uruchomienie przez systemd nie jest możliwe)
 
 ```
 sudo dockerd&
@@ -168,7 +197,7 @@ Działa !
 Obecnie WSL2 nie umożliwia na natywnie uruchamianie aplikacji z interfejsem graficznym. Microsoft zapowiedział
 udostępnienie tej funkcji w przyszłości.
 
-Natomiast po instalacji jednego z dostępnych portów serwera X-ów, aplikacje z graficznym 
+Natomiast po instalacji jednego z dostępnych portów serwera X-ów dla systemu Windows, aplikacje z graficznym 
 interfejsem można uruchamiać.
 
 1 Należy zacząć od instalacji wybranego serwera X-ów. Na przykład vcxsrv
@@ -179,11 +208,17 @@ interfejsem można uruchamiać.
 
 ![Install docker](https://arturfog.github.io/articles/wsl2/27.png)
 
-3 Podczas uruchomienia serwera X11 należy zaznaczyć opcje 'Disable access control'
+3 Uruchamiamy aplikacje, podczas uruchomienia pojawi się kreator, który pozwala wybrać parametery
+serwera X-ów
+
+![Install docker](https://arturfog.github.io/articles/wsl2/45.png)
+![Install docker](https://arturfog.github.io/articles/wsl2/46.png)
+
+4 W ostatnim kroku należy zaznaczyć opcje 'Disable access control'
 
 ![Install docker](https://arturfog.github.io/articles/wsl2/31.png)
 
-4 Po instalacji należy już w środowisku Ubuntu zadeklarować dwie zmienne środowiskowe i 
+5 Po uruchomienia serwera, już w środowisku Ubuntu, należy zadeklarować dwie zmienne środowiskowe i 
 możemy już uruchamiać aplikacje graficzne. 
 
 ```
@@ -205,7 +240,7 @@ sudo apt install firefox
 firefox
 ```
 
-I jak widać działa. 
+Działa !
 
 ![Install docker](https://arturfog.github.io/articles/wsl2/33.png)
 
@@ -234,15 +269,26 @@ cat /etc/resolv.conf | grep nameserver
 
 4 Edytujemy plik 'etc\pulse\default.pa'
 
+Wyłączamy obłsugę przechwytywania dzwięku, ze względu na problemy z kompatyblinością z Windows
+
 ![Install docker](https://arturfog.github.io/articles/wsl2/38.png)
+
+Dodajemy adres IP kontenera Ubuntu do listy wyjątków, aby pozowlić mu na połączenie z serwerem PulseAudio
 
 ![Install docker](https://arturfog.github.io/articles/wsl2/41.png)
 
 5 Edytujemy plik 'etc\pulse\daemon.conf'
 
+W pliku wyłączamy automatyczne zamykanie serwera po 20 minutach bez podłączenia klienta, zmieniajać wartość na -1
+
 ![Install docker](https://arturfog.github.io/articles/wsl2/37.png)
 
 6 Teraz możemy uruchomić server pulseaudio
+
+Przy pomocy terminala Windows przechodzimy do podkatalogu bin w katalogu z wypakowanymi plikami PulseAudio
+```
+pulseaudio.exe
+```
 
 ![Install docker](https://arturfog.github.io/articles/wsl2/44.png)
 
@@ -268,6 +314,12 @@ export PULSE_SERVER=tcp:172.26.112.1
 USB jest kolejną funkcjonalnością nie dostępną obecnie w WSL2. Jego obsługa jest 
 zapowiedziana w kolejnych aktualizacjach.
 
-Ten pull request w połączeniu z narzędziem usbip pozwala wg. autora na obsługę urządzeń USB
+Poniewż WSL2 bazuje na krenelu Linuxa, użytkownicy próbują dodać obsługę USB poprzzez rekompilacje Linuxa i 
+wykorzystanie aplikacji USB/IP [http://usbip.sourceforge.net/](http://usbip.sourceforge.net/)
+
+Jedną z takich prób jest następujący pull request
 
 [https://github.com/microsoft/WSL2-Linux-Kernel/pull/45](https://github.com/microsoft/WSL2-Linux-Kernel/pull/45)
+
+Niestety USB/IP nie pozwala na udostępnienie portów USB z systemu Windows, natomiast pozwala udostępniać porty USB 
+kiedy serwerem jest Linux.
