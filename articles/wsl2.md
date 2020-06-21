@@ -13,14 +13,21 @@
 
 ## Czym jest WSL2?<a name="part1"></a>
 
-WSL2 jest zaprezentowanym w Maju 2020 zaktualizowanym środowiskiem do uruchamiana pełnych dystrybucji Linuxa takich jak min. Ubuntu 
-z poziomu systemu Windows. [What's New in WSL2?'](https://docs.microsoft.com/en-us/windows/wsl/wsl2-index)
+WSL2 jest zaktualizowaną wersją środowiska WSL, udostępnioną dla wszystkich (nie tylko uczesntników programu Windows Insider) w Maju 2020, służącą do uruchamiana pełnych dystrybucji Linuxa takich jak min. Ubuntu z poziomu systemu Windows. [What's New in WSL2?'](https://docs.microsoft.com/en-us/windows/wsl/wsl2-index)
+
+### Troche historii
+
+W sierpniu 2016 Microsoft zaprezentował WSL (Windows Subsystem for Linux), warstwę kompatybliności pozwalającą na uruchamianie plików 
+wykonywalnych dla systemu GNU/Linux a dokładnie ELF. Początkowo dostępna była tylko jedna dystrybucja, Ubuntu Linux. WSL 1 bazował na wartwie pośredniczącej przez co brakowało wsparcia dla pewnych funkcjonalności, np. docker-a. Również operacje I/O ze względu na wartstę pośredniczącą były dosyć wolne. WSL1 nie wspiera również aplikacji 32-bitowych.
+
+Technologia stojąca za WSL bazuje na porzuconym projekcie [Astoria](https://arstechnica.com/information-technology/2016/02/microsoft-confirms-android-on-windows-astoria-tech-is-gone/), którego celem było uruchamianie aplikacji dla systemu Android w Windows 10 Mobile.
+
 
 ### Najwieksze zalety WSL2 w porównaniu do WSL1
 
 * Bazuje na prawdziwym kernelu Linuxa a nie jak dotychczas interfejsie pośredniczącym
 * Pełne wsparcie sys-calli Linuxa
-* Nawet 20x szybsze operacje I/O. Kompilacja czy wypakowywanie plików znacznie przyspieszyło
+* Niektóre operacje I/O są teraz nawet 20x szybsze. Kompilacja czy wypakowywanie plików znacznie przyspieszyło
 * Pliki przechowywane są na partycji ext4 (domyślny romiar dysku WSL2 to 250 GB)
 
 ## Konfiguracja WSL2 w Windows 10<a name="part2"></a>
@@ -127,6 +134,12 @@ interfejsem użytkownika.
 
 ## Dostęp do plików WLS2 <-> Windows<a name="part4"></a>
 
+Dostęp do plików został rozwiązany bardzo wygodnie. W kontenerze WSL2 
+automatycznie zostają podmontowane wszystkie dyski widoczne w systemie Windows. 
+
+Dostęp z Windows do plików w konetenerach WSL2 róznież jest bardzo łatwy, poprzez 'Eksplorator plików' i 
+specjaną ścieżke
+
 ### Dostęp z Linuxa do dysków systemu Windows 
 
 Z poziomu Linuxa możemy uzyskać dostęp do plików i dysków widocznych w systemie Windows
@@ -158,7 +171,10 @@ przechowywanych w Ubuntu, w wygodny sposób
 Największą wg. mnie zaletą WSL2 jest pełne wsparcie dla [docker-a](https://www.docker.com/)
 
 Jego obsługa bez dużego narzutu sprzętowego (jak w przypdaku pełnej wirtualizacji), 
-pozwala na wygodną obsługę zaawansowanych konterów.
+pozwala na wygodną obsługę zaawansowanych kontenerów.
+
+Umożliwia to pracę z projektami wymagającymi Linuxa, osobą, które z różnych wzgledów nie 
+chciały/mogły zainstalować na komputerze Linuxa.
 
 Zacznijmy od instalacji docker-a
 
@@ -194,7 +210,7 @@ Działa !
 
 ## Aplikacje z interfejsem graficznym <a name="part6"></a>
 
-Obecnie WSL2 nie umożliwia na natywnie uruchamianie aplikacji z interfejsem graficznym. Microsoft zapowiedział
+Obecnie WSL2 nie pozwalaa na natywnie uruchamianie aplikacji z interfejsem graficznym. Microsoft zapowiedział
 udostępnienie tej funkcji w przyszłości.
 
 Natomiast po instalacji jednego z dostępnych portów serwera X-ów dla systemu Windows, aplikacje z graficznym 
