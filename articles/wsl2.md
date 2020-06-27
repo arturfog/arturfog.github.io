@@ -13,15 +13,17 @@
 
 ## Czym jest WSL2?<a name="part1"></a>
 
-WSL2 jest zaktualizowaną wersją środowiska WSL, udostępnioną dla wszystkich (nie tylko uczesntników programu Windows Insider) w Maju 2020, służącą do uruchamiana pełnych dystrybucji Linuxa takich jak min. Ubuntu z poziomu systemu Windows. [What's New in WSL2?'](https://docs.microsoft.com/en-us/windows/wsl/wsl2-index)
+WSL2 jest zaktualizowaną wersją środowiska WSL, udostępnioną w Maju 2020, dla wszystkich (nie tylko uczesntników programu Windows Insider),
+służącą do uruchamiana pełnych dystrybucji Linuxa takich jak min. Ubuntu z poziomu systemu Windows. [What's New in WSL2?'](https://docs.microsoft.com/en-us/windows/wsl/wsl2-index)
 
 ### Troche historii
 
-W sierpniu 2016 Microsoft zaprezentował WSL (Windows Subsystem for Linux), warstwę kompatybliności pozwalającą na uruchamianie plików 
-wykonywalnych dla systemu GNU/Linux a dokładnie ELF. Początkowo dostępna była tylko jedna dystrybucja, Ubuntu Linux. WSL 1 bazował na wartwie pośredniczącej przez co brakowało wsparcia dla pewnych funkcjonalności, np. docker-a. Również operacje I/O ze względu na wartstę pośredniczącą były dosyć wolne. WSL1 nie wspiera również aplikacji 32-bitowych.
+W sierpniu 2016 Microsoft zaprezentował WSL (Windows Subsystem for Linux), warstwę kompatybliności pozwalającą na uruchamianie plików wykonywalnych dla systemu GNU/Linux a dokładnie ELF. 
+Początkowo w WSL dostępna była tylko jedna dystrybucja, Ubuntu Linux. WSL 1 bazował na wartwie pośredniczącej przez co brakowało wsparcia dla pewnych funkcjonalności, np. docker-a. 
+Również operacje I/O były dosyć wolne. WSL1 nie wspiera aplikacji 32-bitowych.
 
-Technologia stojąca za WSL bazuje na porzuconym projekcie [Astoria](https://arstechnica.com/information-technology/2016/02/microsoft-confirms-android-on-windows-astoria-tech-is-gone/), którego celem było uruchamianie aplikacji dla systemu Android w Windows 10 Mobile.
-
+Technologia stojąca za WSL bazuje na porzuconym projekcie [Astoria](https://arstechnica.com/information-technology/2016/02/microsoft-confirms-android-on-windows-astoria-tech-is-gone/), 
+którego celem było uruchamianie aplikacji dla systemu Android w Windows 10 Mobile.
 
 ### Najwieksze zalety WSL2 w porównaniu do WSL1
 
@@ -32,8 +34,7 @@ Technologia stojąca za WSL bazuje na porzuconym projekcie [Astoria](https://ars
 
 ## Konfiguracja WSL2 w Windows 10<a name="part2"></a>
 
-WSL2 dostępny jest tylko na Windows 10 Pro w wersji co najmniej 1909. 
-Poniższe kroki były uruchamiane na wersji 2004.
+WSL2 dostępny jest tylko na Windows 10 Pro w wersji co najmniej 1909 a poniższe kroki były uruchamiane na wersji 2004.
 
 Wersje sytstemu Windows można sprawdzić wpisująć w terminalu komendę 
 
@@ -108,10 +109,13 @@ wsl --set-default-version 2
 
 ![Ubuntu downloading](https://arturfog.github.io/articles/wsl2/16.png)
 
-Po zakończeniu instalacji i konfiguracji zestawu WSL2 + Ubuntu uzyskujemy dostęp do 
-pełnej funkcjonalności tej dystrybucji Linuxa. 
+Po zakończeniu instalacji i konfiguracji zestawu WSL2 + Ubuntu możemy rozpocząć korzytanie 
+z zainstalowanej dystrybucji Linuxa
 
 ## Podstawowa konfiguracja Ubuntu<a name="part3"></a>
+
+Domyślna instalacja Ubuntu posiada zainstalowane tylko podstawowe aplikacje, przed rozpoczęciem instalacji kolejnych
+warto przeprowadić aktualizacje pakietów do najnowszych wersji
 
 1 Aktualizujemy listę dostępnych pakietów
 
@@ -134,13 +138,10 @@ interfejsem użytkownika.
 
 ## Dostęp do plików WLS2 <-> Windows<a name="part4"></a>
 
+### Dostęp z Linuxa do dysków systemu Windows 
+
 Dostęp do plików został rozwiązany bardzo wygodnie. W kontenerze WSL2 
 automatycznie zostają podmontowane wszystkie dyski widoczne w systemie Windows. 
-
-Dostęp z Windows do plików w konetenerach WSL2 róznież jest bardzo łatwy, poprzez 'Eksplorator plików' i 
-specjaną ścieżke
-
-### Dostęp z Linuxa do dysków systemu Windows 
 
 Z poziomu Linuxa możemy uzyskać dostęp do plików i dysków widocznych w systemie Windows
 
@@ -151,6 +152,9 @@ Dysk C: (i wszystkie inne) dostępne są z katalogu */mnt*
 ![Ubuntu disk access](https://arturfog.github.io/articles/wsl2/22.png)
 
 ### Dostęp z Windows do plików Ubuntu
+
+Dostęp z Windows do plików w konetenerach WSL2 róznież jest bardzo łatwy, poprzez 'Eksplorator plików' i 
+specjaną ścieżke
 
 Aby uzyskać dostęp do plików Ubuntu z poziomu Windows należy w "Eksploratorze plików" wpisać 
 ścieżke
@@ -227,6 +231,7 @@ interfejsem można uruchamiać.
 3 Uruchamiamy aplikacje, podczas uruchomienia pojawi się kreator, który pozwala wybrać parametery
 serwera X-ów
 
+![Install docker](https://arturfog.github.io/articles/wsl2/48.png)
 ![Install docker](https://arturfog.github.io/articles/wsl2/45.png)
 ![Install docker](https://arturfog.github.io/articles/wsl2/46.png)
 
